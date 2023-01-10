@@ -6,33 +6,35 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using mvcLearn.Models;
+using mvcLearn.Services;
+using mvcLearn.ViewModels;
 
 namespace mvcLearn.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IRestaurantData _restaurantData;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IRestaurantData restaurantData)
         {
-            _logger = logger;
+            _restaurantData = restaurantData;
         }
 
         public IActionResult Index()
         {
-            return View();
+            //var model = _restaurantData.GetAll();
+            var model = new HomeIndexViewModel();
+            model.Restaurent = _restaurantData.GetAll();
+            model.CurrentMessage = "FOOD GHOR";
+            return View(model);
         }
 
-        public IActionResult Privacy()
+
+        public string NotFound()
         {
-            return View();
+            return "Page Not Found !";
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
 

@@ -1,9 +1,16 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model mvcLearn.ViewModels.HomeIndexViewModel
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1>@Model.CurrentMessage</h1>  
+    <table>
+        @foreach (var restaurant in Model.Restaurent)
+        {
+            <tr>
+                <td>@restaurant.Id</td>
+                <td>@restaurant.Name</td>
+            </tr>
+            <tr></tr>
+        }
+    </table>       
 </div>
 
